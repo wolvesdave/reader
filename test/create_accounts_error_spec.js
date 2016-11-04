@@ -8,6 +8,8 @@ SP_APP_NAME = 'Reader Test';
 var frisby = require('frisby');
 var tc = require('../config/test_config');
 
+console.log('frisby.create');
+
 frisby.create('POST missing firstName')
     .post(tc.url + '/user/enroll',
           { 'lastName' : TU1_LN,

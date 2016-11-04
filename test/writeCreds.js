@@ -1,6 +1,6 @@
 TU_EMAIL_REGEX = new RegExp('^testuser*');
 SP_APP_NAME = 'Reader Test';
-TEST_CREDS_TMP_FILE = './tmp/readerTestCreds.js';
+TEST_CREDS_TMP_FILE = '../tmp/readerTestCreds.js';
 
 var async = require('async');
 var dbConfig = require('../config/db.js');
@@ -11,8 +11,10 @@ var mongoClient = mongodb.MongoClient
 var reader_test_db = null;
 var users_array = null;
 
+console.log('about to connect to DB ' + dbConfig.url);
+
 function connectDB(callback) {
- 	mongoClient.connect('dbConfig.url', function(err, db) {
+ 	mongoClient.connect(dbConfig.url, function(err, db) {
  		assert.equal(null, err);
  		reader_test_db = db;
  		callback(null);
@@ -30,7 +32,8 @@ function lookupUserKeys(callback) {
 
 function writeCreds(callback) {
  	var fs = require('fs');
- 	fs.writeFileSync(TEST_CREDS_TMP_FILE, 'TEST_USERS = ');
+  console.log('users_array= ' + JSON.stringify(users_array));
+  fs.writeFileSync(TEST_CREDS_TMP_FILE, 'TEST_USERS = ');
  	fs.appendFileSync(TEST_CREDS_TMP_FILE, JSON.stringify(users_array));
  	fs.appendFileSync(TEST_CREDS_TMP_FILE, '; module.exports = TEST_USERS;');
  	callback(0);

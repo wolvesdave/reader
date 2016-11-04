@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 var express = require('express');
+var validator = require('validator');
+var logger = require('winston');
+var async = require('async');
 
 var userSchema = new mongoose.Schema({
          active: Boolean,
